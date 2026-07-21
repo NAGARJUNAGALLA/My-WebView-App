@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.app.Activity
 import android.os.Bundle
 import android.view.KeyEvent
+import android.view.WindowManager // <- NEW IMPORT FOR SECURITY
 import android.webkit.WebResourceError
 import android.webkit.WebResourceRequest
 import android.webkit.WebView
@@ -18,6 +19,12 @@ class MainActivity : Activity() {
     @SuppressLint("SetJavaScriptEnabled")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        // THIS LINE DISABLES SCREENSHOTS AND SCREEN RECORDING
+        window.setFlags(
+            WindowManager.LayoutParams.FLAG_SECURE,
+            WindowManager.LayoutParams.FLAG_SECURE
+        )
 
         webView = WebView(this)
         
@@ -53,8 +60,8 @@ class MainActivity : Activity() {
         }
         setContentView(root)
 
-        // Replace this URL with the actual live link to your website
-        webView.loadUrl("https://jcv-mock-tests.web.app/2026/") 
+        // Replace with your actual live link
+        webView.loadUrl("https://jcv-mock-tests.web.app/aptet5.html") 
     }
 
     override fun onDestroy() {
