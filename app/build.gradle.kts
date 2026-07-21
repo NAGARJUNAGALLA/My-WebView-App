@@ -14,8 +14,17 @@ android {
         versionCode = 1
         versionName = "1.0"
     }
+
+    // THIS IS THE NEW FIX: Forcing Java 17 compatibility
+    compileOptions {
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
+    }
+    kotlinOptions {
+        jvmTarget = "17"
+    }
 }
 
 dependencies {
-    // Left completely empty because we are using native Android tools!
+    // Still empty, just as we need it!
 }
