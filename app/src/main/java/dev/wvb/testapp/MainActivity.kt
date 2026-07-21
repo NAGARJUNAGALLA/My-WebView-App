@@ -54,7 +54,7 @@ class MainActivity : Activity() {
         setContentView(root)
 
         // Replace this URL with the actual live link to your website
-        webView.loadUrl("https://yourwebsite.com") 
+        webView.loadUrl("https://jcv-mock-tests.web.app/2026/") 
     }
 
     override fun onDestroy() {
