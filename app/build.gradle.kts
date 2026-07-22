@@ -26,5 +26,6 @@ android {
 }
 
 dependencies {
+implementation("androidx.biometric:biometric:1.1.0")
     // Still empty, just as we need it!
 }
