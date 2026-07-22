@@ -1,6 +1,7 @@
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
+    id("com.google.gms.google-services
 }
 
 android {
@@ -31,4 +32,9 @@ dependencies {
     // Add these two specific lines:
     implementation("androidx.appcompat:appcompat:1.6.1")
     implementation("androidx.biometric:biometric:1.1.0")
+// Import the Firebase BoM (Bill of Materials) to manage versions
+    implementation(platform("com.google.firebase:firebase-bom:32.8.0"))
+    
+    // Add the Cloud Messaging dependency
+    implementation("com.google.firebase:firebase-messaging")
 }
