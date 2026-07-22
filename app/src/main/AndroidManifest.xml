@@ -3,10 +3,13 @@
     package="dev.wvb.testapp">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.USE_BIOMETRIC" />
 
     <application
         android:allowBackup="true"
-        android:label="My App"
+        android:icon="@drawable/logo"
+        android:roundIcon="@drawable/logo"
+        android:label="JCV MOCK TESTS"
         android:theme="@android:style/Theme.NoTitleBar">
         <activity
             android:name=".MainActivity"
