@@ -25,9 +25,9 @@ jobs:
     - name: Decode Keystore
       env:
         ENCODED_STRING: ${{ secrets.KEYSTORE_B64 }}
-      # This turns your Base64 text back into the .jks file on GitHub's server
+      # We added quotes and the --ignore-garbage flag to handle line breaks securely
       run: |
-        echo $ENCODED_STRING | base64 -d > keystore.jks
+        echo "$ENCODED_STRING" | base64 --decode --ignore-garbage > keystore.jks
         
     - name: Build and Sign Release APK and AAB
       # We switched back to using standard 'gradle' instead of the missing wrapper
