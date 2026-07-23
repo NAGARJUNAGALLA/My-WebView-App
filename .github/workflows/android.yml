@@ -21,9 +21,6 @@ jobs:
       uses: gradle/actions/setup-gradle@v3
       with:
         gradle-version: '8.2'
-        
-    - name: Make Gradle Wrapper Executable
-      run: chmod +x ./gradlew
 
     - name: Decode Keystore
       env:
@@ -33,9 +30,9 @@ jobs:
         echo $ENCODED_STRING | base64 -d > keystore.jks
         
     - name: Build and Sign Release APK and AAB
-      # This builds both formats and signs them using your secrets
+      # We switched back to using standard 'gradle' instead of the missing wrapper
       run: >
-        ./gradlew assembleRelease bundleRelease
+        gradle assembleRelease bundleRelease
         -Pandroid.injected.signing.store.file=$(pwd)/keystore.jks
         -Pandroid.injected.signing.store.password=${{ secrets.KEYSTORE_PASSWORD }}
         -Pandroid.injected.signing.key.alias=${{ secrets.KEY_ALIAS }}
