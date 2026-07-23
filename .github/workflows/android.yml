@@ -22,11 +22,33 @@ jobs:
       with:
         gradle-version: '8.2'
         
-    - name: Build Debug APK
-      run: gradle assembleDebug
+    - name: Make Gradle Wrapper Executable
+      run: chmod +x ./gradlew
+
+    - name: Decode Keystore
+      env:
+        ENCODED_STRING: ${{ secrets.KEYSTORE_B64 }}
+      # This turns your Base64 text back into the .jks file on GitHub's server
+      run: |
+        echo $ENCODED_STRING | base64 -d > keystore.jks
+        
+    - name: Build and Sign Release APK and AAB
+      # This builds both formats and signs them using your secrets
+      run: >
+        ./gradlew assembleRelease bundleRelease
+        -Pandroid.injected.signing.store.file=$(pwd)/keystore.jks
+        -Pandroid.injected.signing.store.password=${{ secrets.KEYSTORE_PASSWORD }}
+        -Pandroid.injected.signing.key.alias=${{ secrets.KEY_ALIAS }}
+        -Pandroid.injected.signing.key.password=${{ secrets.KEY_PASSWORD }}
       
-    - name: Upload APK Artifact
+    - name: Upload Signed Release APK
       uses: actions/upload-artifact@v4
       with:
-        name: app-debug
-        path: app/build/outputs/apk/debug/app-debug.apk
+        name: release-apk
+        path: app/build/outputs/apk/release/*.apk 
+        
+    - name: Upload Signed Release AAB
+      uses: actions/upload-artifact@v4
+      with:
+        name: release-aab
+        path: app/build/outputs/bundle/release/*.aab
